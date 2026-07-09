@@ -13,9 +13,18 @@ FetchContent_Declare(
   FIND_PACKAGE_ARGS NAMES spdlog #checa no pc antes se tem o spdlog builded ja
 )
 
-FetchContent_MakeAvailable(spdlog)
+FetchContent_Declare(ftxui
+  GIT_REPOSITORY https://github.com/ArthurSonzogni/FTXUI
+  GIT_TAG v7.0.0
+)
+FetchContent_MakeAvailable(spdlog ftxui)
 
 
-add_executable(mdl main.cpp)
+add_executable(mdl main.cpp core/downloader.hpp core/downloader.cpp)
 
-target_link_libraries(mdl PRIVATE spdlog::spdlog $<$<BOOL:${MINGW}>:ws2_32>) #nao entendi pq esse trem feio mas tava no github dos cara
+target_link_libraries(mdl 
+  PRIVATE spdlog::spdlog $<$<BOOL:${MINGW}>:ws2_32>
+  PRIVATE ftxui::screen
+  PRIVATE ftxui::dom
+  PRIVATE ftxui::component
+  ) #nao entendi pq esse trem feio mas tava no github dos cara
