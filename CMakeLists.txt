@@ -20,7 +20,7 @@ FetchContent_Declare(ftxui
 FetchContent_MakeAvailable(spdlog ftxui)
 
 
-add_executable(mdl main.cpp core/downloader.hpp core/downloader.cpp)
+add_executable(mdl main.cpp core/downloader.hpp core/downloader_unix.cpp)
 
 target_link_libraries(mdl 
   PRIVATE spdlog::spdlog $<$<BOOL:${MINGW}>:ws2_32>
